@@ -66,6 +66,17 @@
     display:inline-block;
   }
 
+  .case-number{
+    font-family: var(--font-display); font-style: italic; font-weight:500;
+    font-size: clamp(1.5rem, 2.4vw, 1.9rem);
+    color: var(--ink-faint);
+    display:flex; align-items:center; gap:16px;
+    margin-bottom: 22px;
+  }
+  .case-number::after{
+    content:''; width:64px; height:1px; background: var(--line); flex-shrink:0;
+  }
+
   /* ================= NAV ================= */
   .nav{
     position:fixed; top:0; left:0; right:0; z-index:100;
@@ -180,7 +191,11 @@
     padding:7px 14px; border-radius:100px;
     border:1px solid var(--line);
     color: var(--ink);
+    background: none; cursor: pointer; appearance: none; -webkit-appearance: none;
+    transition: border-color 0.2s ease, background 0.2s ease, transform 0.15s ease;
   }
+  .hero-tag:hover{ border-color: var(--ink); background: var(--paper-dim); transform: translateY(-1px); }
+  .hero-tag:focus-visible{ outline: 2px solid var(--ink); outline-offset: 2px; }
 
   .hero-visual{ margin-top:64px; }
   .hero-visual-img{
@@ -225,6 +240,11 @@
     background: var(--paper); border:1.5px solid var(--ink-faint);
   }
   .t-item.current::before{ background: var(--ink); border-color:var(--ink); }
+  .t-item.jump-highlight::before{ animation: dotPulse 1.6s ease-out; }
+  @keyframes dotPulse{
+    0%{ box-shadow: 0 0 0 0 rgba(18,18,18,0.35); }
+    100%{ box-shadow: 0 0 0 16px rgba(18,18,18,0); }
+  }
   .t-head{ display:flex; align-items:baseline; gap:14px; flex-wrap:wrap; margin-bottom:10px; }
   .t-company{ font-family:var(--font-sans); font-size:1.3rem; font-weight:700; }
   .t-role{ font-family:var(--font-sans); font-size:0.8rem; letter-spacing:0.04em; text-transform:uppercase; color:var(--ink-soft); }
@@ -235,6 +255,12 @@
 
   /* ================= CASE STUDY ================= */
   .work{ background: var(--paper); border-top:1px solid var(--line-soft); }
+  .section-kicker{
+    font-family: var(--font-sans); font-weight:700;
+    font-size: clamp(2.2rem, 4.5vw, 3.4rem);
+    letter-spacing:-0.01em; color: var(--ink);
+    margin-bottom: 56px;
+  }
   .cs-title{
     font-family:var(--font-display); font-weight:500;
     font-size: clamp(2.8rem, 7vw, 5.2rem); letter-spacing:-0.01em;
@@ -449,10 +475,10 @@
       <h1>Hello, I'm <em>Rado</em></h1>
       <p class="lede">Senior Product Designer with 10+ years of experience leading 0→1 product launches and shaping strategy across complex, high-impact enterprise B2B initiatives.</p>
       <div class="hero-tags">
-        <span class="hero-tag">SaaS</span>
-        <span class="hero-tag">Healthcare</span>
-        <span class="hero-tag">Fintech</span>
-        <span class="hero-tag">Fleet Management</span>
+        <button type="button" class="hero-tag" data-target="journey-outreach">SaaS</button>
+        <button type="button" class="hero-tag" data-target="journey-imo">Healthcare</button>
+        <button type="button" class="hero-tag" data-target="journey-eurowag">Fintech</button>
+        <button type="button" class="hero-tag" data-target="journey-wheels">Fleet Management</button>
       </div>
     </div>
   </div>
@@ -472,7 +498,7 @@
     </div>
 
     <div class="timeline">
-      <div class="t-item current reveal">
+      <div class="t-item current reveal" id="journey-outreach">
         <div class="t-head">
           <span class="t-company">Outreach</span>
           <span class="t-role">Senior Product Designer</span>
@@ -480,7 +506,7 @@
         <p class="t-desc">I design tools that help sales reps communicate smarter and close deals faster — making Outreach more intuitive, automated, and insight-driven.</p>
       </div>
 
-      <div class="t-item reveal">
+      <div class="t-item reveal" id="journey-eurowag">
         <div class="t-head">
           <span class="t-company">Eurowag</span>
           <span class="t-role">Head of UX Design</span>
@@ -492,7 +518,7 @@
         </div>
       </div>
 
-      <div class="t-item reveal">
+      <div class="t-item reveal" id="journey-imo">
         <div class="t-head">
           <span class="t-company">Intelligent Medical Objects</span>
           <span class="t-role">Senior UX Strategist</span>
@@ -504,7 +530,7 @@
         </div>
       </div>
 
-      <div class="t-item reveal">
+      <div class="t-item reveal" id="journey-wheels">
         <div class="t-head">
           <span class="t-company">Wheels Inc</span>
           <span class="t-role">Senior UX Architect</span>
@@ -522,7 +548,9 @@
 <!-- ================= CASE STUDY: NOVA ================= -->
 <section class="work" id="work">
   <div class="wrap">
+    <div class="section-kicker reveal">Work</div>
     <div class="reveal">
+      <div class="case-number">01</div>
       <div class="eyebrow">Outreach · Senior Product Designer</div>
       <h2 class="cs-title">From Passive Database to Active System</h2>
       <p class="cs-sub">From passive database to active system — an AI sales command center that tells reps what to do next, and shows its reasoning.</p>
@@ -673,6 +701,7 @@
 <section class="work" id="work-ra">
   <div class="wrap">
     <div class="reveal">
+      <div class="case-number">02</div>
       <div class="eyebrow">Outreach · Senior Product Designer</div>
       <h2 class="cs-title">Research Agent</h2>
       <p class="cs-sub">Fusing first-party conversation data with live web research into one agent that plans accounts, personalizes outreach, and catches risk before it becomes churn.</p>
@@ -779,6 +808,7 @@
 <section class="work" id="work-sea">
   <div class="wrap">
     <div class="reveal">
+      <div class="case-number">03</div>
       <div class="eyebrow">Outreach · Senior Product Designer</div>
       <h2 class="cs-title">Smart Email Assist</h2>
       <p class="cs-sub">Bringing generative AI into the sales workflow — six weeks, zero precedent, and a market that wouldn't wait.</p>
@@ -871,8 +901,9 @@
 <section class="work" id="work-ew">
   <div class="wrap">
     <div class="reveal">
+      <div class="case-number">04</div>
       <div class="eyebrow">Eurowag · Head of Design</div>
-      <h2 class="cs-title">Self-Service Credit, Built for a Public Company</h2>
+      <h2 class="cs-title">Self-Service Credit</h2>
       <p class="cs-sub">Replacing a sales-led credit process with a self-service, AI-assisted application — while building the brand system Eurowag needed to go public on the LSE.</p>
     </div>
 
@@ -1040,6 +1071,21 @@
     stop.addEventListener('click', () => {
       const target = document.getElementById(stop.dataset.target);
       if(target) target.scrollIntoView({behavior:'smooth', block:'start'});
+    });
+  });
+
+  const heroTags = Array.from(document.querySelectorAll('.hero-tag[data-target]'));
+  heroTags.forEach(tag => {
+    tag.addEventListener('click', () => {
+      const target = document.getElementById(tag.dataset.target);
+      if(!target) return;
+      target.scrollIntoView({behavior:'smooth', block:'center'});
+      target.classList.remove('jump-highlight');
+      // restart animation even if clicked again quickly
+      requestAnimationFrame(() => {
+        target.classList.add('jump-highlight');
+        setTimeout(() => target.classList.remove('jump-highlight'), 1600);
+      });
     });
   });
 
